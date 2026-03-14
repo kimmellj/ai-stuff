@@ -10,7 +10,8 @@ I use this stuff in my day-to-day, life if you like something, take it and make 
 # Agents
 
 > [!NOTE]  
-> For the purposes of this repository, when I say agent I mean an AI Command Line Agent.
+> For the purposes of this repository, when I say "agent" I mean an AI Command Line Agent.   
+> When I say "prompt" I mean typing a mesage to the above AI Agent. 
 
 The following are some popular ones:
 * [Claude Code](https://code.claude.com/docs/en/overview)
@@ -18,22 +19,8 @@ The following are some popular ones:
 * [Open Code](https://opencode.ai/)
 * [Cline](https://cline.bot/)
 
-# Customized Sub-Agents
-
-You can think of these as a persona for when you're working with an AI Agent.
-
-They give the AI an boiler plate and specifics for what you want, so you don't have to type it every time, and
-the AI becomes the persona you describe for it. 
-
-You can find the agents I use in this folder:   
-[agents](agents/)
-
-> [!TIP]
-> You can find a ton of other example agents in this repository:   
-> [https://github.com/msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)
-
 # Context
-> Context-aware AI can interpret what you're building, why you're building it, and how everything connects. This is especially critical in tools like AI code generators or AI code review systems, where nuance matters. [^1]
+> Context-aware AI can interpret what you're building, why you're building it, and how everything connects. This is especially critical in tools like AI code generators or AI code review systems, where nuance matters.
 > 
 > https://graphite.com/guides/context-awareness-in-ai
 
@@ -49,6 +36,35 @@ You can kind of see where things would go wrong with this and you will have to c
 
 This is the same with AI, in order to short cut that process, you can build the context (memory) of an Agent's session. 
 
+Other than typing a prompt, the following sections give some guidance on on ways to add content to your context in a standarized way. 
+
+## Customized Sub-Agents
+
+You can think of these as a persona for when you're working with an AI Agent.
+
+They give the AI an boiler plate and specifics for what you want, so you don't have to type it every time, and
+the AI becomes the persona you describe for it. 
+
+### My Custom Agents
+
+## [Architect](agents/ARCHITECT.md)
+A Principal Software Architect persona for high-level planning and system design.
+* Stops you from jumping straight into code — forces a diagram or pseudocode first so you catch design mistakes early
+* Pushes back on trendy frameworks and unnecessary dependencies before they become your problem
+* Useful when starting a new feature, service, or system where the wrong decision upfront costs weeks later
+* Keeps security and maintainability as first-class constraints, not afterthoughts
+
+## [Developer](agents/DEVELOPER.md)
+A Senior Developer persona for implementing, debugging, and shipping working code.
+* Takes a design (from the Architect or your own head) and produces production-ready, tested code
+* Enforces the "no stubs, no placeholders" rule — output must run, not just look plausible
+* Useful when you have a clear task and need focused execution without second-guessing the approach
+* Pairs with the Architect: Architect designs, Developer builds — keeps each AI interaction scoped to one job
+
+> [!TIP]
+> Ton of other example agents:
+> [https://github.com/msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)
+
 ## Skills
 
 > Skills are reusable, filesystem-based resources that provide Claude with domain-specific expertise: workflows, context, and best practices that transform general-purpose agents into specialists. Unlike prompts (conversation-level instructions for one-off tasks), Skills load on-demand and eliminate the need to repeatedly provide the same guidance across multiple conversations.   
@@ -60,10 +76,11 @@ Claude pioneered the concept but most all all the Agents today support them.
 * [Gemini](https://geminicli.com/docs/cli/skills/)
 * [Open Code](https://opencode.ai/docs/skills/)
 
-You find the skills I use in this folder:  
-[skills](./skills)
-
-YOu can find a ton of other skills in this repository:   
+> [!TIP]
+> Skills I use:  
+> [skills](./skills)
+> 
+> Ton of other skills:   
 [https://github.com/VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 
 ## Process
