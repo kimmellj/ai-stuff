@@ -38,7 +38,18 @@ You can kind of see where things would go wrong with this and you will have to c
 This is the same with AI, in order to shortcut that process, you can build / manage the context (memory) of an Agent's session. 
 
 > [!CAUTION]
-> It's important to remember that the context is reset with every new session. This can be helpful sometimes but can also be a hinderence. Luckily we have a variety of ways to preload context with content. One of the most common ways to do this is with different types of Markdown files. 
+> It's important to remember that the context is reset with every new session. This can be helpful sometimes but can also be a hinderence. Luckily we have a variety of ways to preload context with content. One of the most common ways to do this is with different types of Markdown files.
+
+```mermaid
+flowchart TD
+    subgraph Context
+        A[Custom Sub-Agents]
+        B[Skills]
+        C[Agent File]
+        D[Plan File]
+        A --> B --> C --> D
+    end
+```
 
 ## Customized Sub-Agents
 > [!INFO]
