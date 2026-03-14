@@ -5,7 +5,7 @@
 > Writing code is like writing poetry, it's subjective, interpretive and personal. This repository is meant to be a
 > guide; not a rule book. 
 >
-> I use this stuff in my day-to-day, life if you like something, take it and make it your own. If you don't like > > it, that's fine too :)
+> I use this stuff in my day-to-day, life if you like something, take it and make it your own. If you don't like it, that's fine too :)
 > 
 > --Jamie
 
@@ -22,11 +22,10 @@ The following are some popular ones:
 * [Cline](https://cline.bot/)
 
 # Context
-> Context-aware AI can interpret what you're building, why you're building it, and how everything connects. This is especially critical in tools like AI code generators or AI code review systems, where nuance matters.
-> 
-> https://graphite.com/guides/context-awareness-in-ai
+> [!NOTE]
+> **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory — it only knows what's in front of it, and when the session ends, it's all gone.
 
-When generate code with AI; things become a lot easier when you start thinking about context and what's in it.
+When generating code with AI; things become a lot easier when you start thinking about context and what's in it.
 
 Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of insructions to replace the brakes on your car, with no other information. 
 
@@ -83,7 +82,7 @@ Claude pioneered the concept but most all all the Agents today support them.
 [https://github.com/VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
 
 ## Agent File
-
+> [!NOTE]
 > One file. Loaded before every conversation. That’s all it takes to turn a stateless AI coding assistant into something that actually remembers how your project works.
 > 
 > https://medium.com/data-science-collective/the-complete-guide-to-ai-agent-memory-files-claude-md-agents-md-and-beyond-49ea0df5c5a9
@@ -105,8 +104,8 @@ Have just enough information to jump start the Agent with how your project is st
 > https://www.youtube.com/watch?v=GcNu6wrLTJc
 
 ## Plan File
-
-A plan file is a written document you create, with the AI's help, before any significant code is generated. It can be called `PLAN.md`, `SPEC.md`, `FEATURE.md`, or anything else that makes sense for your project. The name doesn't matter; the habit does.
+> [!NOTE]
+> A plan file is a written document you create, with the AI's help, before any significant code is generated. It can be called `PLAN.md`, `SPEC.md`, `FEATURE.md`, or anything else that makes sense for your project. The name doesn't matter; the habit does.
 
 Think of it as a contract between you and the AI. Before you say "build this," you say "here's what we're building, and here's why." This is especially important for large features or new applications where a bad early assumption can cost you hours of backtracking.
 
