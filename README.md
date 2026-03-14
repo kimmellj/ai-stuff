@@ -104,11 +104,26 @@ Claude pioneered the concept but most all all the Agents today support them.
 * [Open Code](https://opencode.ai/docs/skills/)
 
 > [!TIP]
-> Skills I use:  
+> Skills I use:
 > [skills](./skills)
-> 
-> Ton of other skills:   
+>
+> Ton of other skills:
 [https://github.com/VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)
+
+### Example Skill
+
+<details>
+<summary>Java Unit Tests</summary>
+
+[View Skill File](skills/java-unit-tests/SKILL.md)
+
+Writes unit tests for Java code using JUnit 5 and Mockito. Invoke with `/java-unit-tests`.
+* Enforces Arrange / Act / Assert structure with consistent test naming conventions
+* Covers happy path, edge cases, and failure scenarios in a defined order
+* Mocks all external dependencies with Mockito — never the class under test
+* Uses AssertJ for readable assertions — no empty or incomplete tests allowed
+
+</details>
 
 ## Agent File
 > [!NOTE]
