@@ -23,9 +23,9 @@ The following are some popular ones:
 
 # Context
 > [!NOTE]
-> **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory — it only knows what's in front of it, and when the session ends, it's all gone.
+> **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory, it only knows what's in it, and when the session ends, it's all gone.
 
-When generating code with AI; things become a lot easier when you start thinking about context and what's in it.
+When generating code with AI; things go smoother when you start thinking about context and what's in it.
 
 Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of insructions to replace the brakes on your car, with no other information. 
 
@@ -38,13 +38,11 @@ You can kind of see where things would go wrong with this and you will have to c
 This is the same with AI, in order to shortcut that process, you can build / manage the context (memory) of an Agent's session. 
 
 > [!CAUTION]
-> It's important to remember that the context is reset with every new session. This can be helpful sometimes but can also be a hinderence. 
-
-Luckily we have a variety of ways to preload context with content. One of the most common ways to do this is with different types of Markdown files. 
+> It's important to remember that the context is reset with every new session. This can be helpful sometimes but can also be a hinderence. Luckily we have a variety of ways to preload context with content. One of the most common ways to do this is with different types of Markdown files. 
 
 ## Customized Sub-Agents
-
-You can think of these as a persona for when you're working with an AI Agent.
+> [!INFO]
+> You can think of these as a [persona](https://en.wikipedia.org/wiki/Persona) for when you're working with an AI Agent.
 
 They give the AI an boiler plate and specifics for what you want, so you don't have to type it every time, and
 the AI becomes the persona you describe for it. 
@@ -55,13 +53,31 @@ the AI becomes the persona you describe for it.
 
 ### My Custom Agents
 
-| [Architect](agents/ARCHITECT.md) | [Developer](agents/DEVELOPER.md) |
-| -------------------------------- | -------------------------------- |
-| Principal Architect persona for high-level planning and system design | Senior Developer persona for implementing, debugging, and shipping working code |
-| Stops you from jumping straight into code — forces a diagram or pseudocode first so you catch design mistakes early | Takes a design (from the Architect or your own head) and produces production-ready, tested code |
-| Pushes back on trendy frameworks and unnecessary dependencies before they become your problem | Enforces the "no stubs, no placeholders" rule — output must run, not just look plausible |
-| Useful when starting a new feature, service, or system where the wrong decision upfront costs weeks later | Useful when you have a clear task and need focused execution without second-guessing the approach |
-| Keeps security and maintainability as first-class constraints, not afterthoughts | Pairs with the Architect: Architect designs, Developer builds — keeps each AI interaction scoped to one job |
+<details>
+<summary>Architect</summary>
+
+[View Agent File](agents/ARCHITECT.md)
+
+Principal Architect persona for high-level planning and system design.
+* Stops you from jumping straight into code — forces a diagram or pseudocode first so you catch design mistakes early
+* Pushes back on trendy frameworks and unnecessary dependencies before they become your problem
+* Useful when starting a new feature, service, or system where the wrong decision upfront costs weeks later
+* Keeps security and maintainability as first-class constraints, not afterthoughts
+
+</details>
+
+<details>
+<summary>Developer</summary>
+
+[View Agent File](agents/DEVELOPER.md)
+
+Senior Developer persona for implementing, debugging, and shipping working code.
+* Takes a design (from the Architect or your own head) and produces production-ready, tested code
+* Enforces the "no stubs, no placeholders" rule — output must run, not just look plausible
+* Useful when you have a clear task and need focused execution without second-guessing the approach
+* Pairs with the Architect: Architect designs, Developer builds — keeps each AI interaction scoped to one job
+
+</details>
 
 ## Skills
 
