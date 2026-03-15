@@ -9,6 +9,10 @@
 > 
 > --Jamie
 
+
+# TODO 
+* Standardize references to projects / code base / repository
+
 # Agents
 
 For the purposes of this repository, when I say "agent" I mean an AI Command Line Agent.   
@@ -156,7 +160,7 @@ This is where an `AGENT.md` file comes in.
 
 More so than the other two file type based context, find a balancing of too much / too little information in this file can be tricky. 
 
-Have just enough information to jump start the Agent with how your project is structured and things that might not be obvious but don't provide too much as it will start to pollute your context. 
+Have just enough information to jump start the Agent with the architecture of your project and things that might not be obvious but don't provide too much as it will start to pollute your context. 
 
 **Some Examples**   
 The following notes are examples of things that might be good to have in the `AGENT.md` file. 
@@ -193,10 +197,8 @@ Think of it as a contract between you and the AI. Before you say "build this," y
 
 Depening on type type / scale of work you want to do with an agent, determines how much much mangement you should consider doing. 
 
-* Small Stuff: Autocomplete, trying to fix a bug, writing a single method or adding unit tests to a class
-* Medium Stuff: Designing and implementing a new feature
-* Large Stuff: Designing and implementing a new application
-* Massive Stuff: Designing and implement a new system, composed of multiple applications
+* Smaller Stuff: Autocomplete, trying to fix a bug, writing a single method or adding unit tests to a class
+* Bigger Stuff: Designing and implementing a new application
 
 > [!TIP]
 > Some things to remember:   
@@ -204,10 +206,7 @@ Depening on type type / scale of work you want to do with an agent, determines h
 > * The Larger the project, the more planning you need to do 
 > * Lean on using a plan file, especially if there is even a remote change you're going to need multiple sessions to finish a request
 
-## Small Stuff
-
-> [!NOTE]
-> 
+## Smaller Stuff
 
 These types of request usually don't need planning and can be executed with a few back and forths with the agents. 
 
@@ -216,10 +215,46 @@ These types of request usually don't need planning and can be executed with a fe
 > * Give it as much information that you can reasonable think of
 > * If you have suspicions or thoughts on how to implement, tell it
 
-## Large Features / Full Application
+## Bigger Stuff
 
-Keeping our context in mind, the fewer directives you give it, the further off the rails it can go. Further more, if you're going to need multiple chat sessions to complete a goal, you're going to need a way to maintain memory / context inbetween the sessions. 
+Keeping our context in mind, the fewer directives you give it, the further off the rails it can go. Further more, if you're going to need multiple chat sessions to complete a goal, you're going to need a way to maintain memory / context inbetween the sessions.
 
-This can be accomplished 
+Whether you're building something from scratch or adding a big feature to an existing project, having a deliberate process makes a huge difference, better output from the agent, and you stay in control of where things are going.
+
+### Phase 1: Planning & Requirements
+
+This phase will help us setup the repository for working on a feature or building the application itself. 
+
+> [!NOTE]
+> If you're working an existing code base, some of the following may already be done, you can skip or adapt to the existing code base. 
+
+#### Create / Update AGENTS.md
+
+We will use the `AGENTS.md` to contain the architecture of the repository. Documentation drift is a real thing and we can use this an opportunity to ensure this file up-to-date. 
+
+You can use the [Update Agent File](./skills/update-agent-file/SKILL.md) to help ASSIST with this. 
+
+> [!CAUTION]
+> Make sure you review anything added to this document, continously, to ensure it remains correct. 
+
+#### Designs Folder
+
+Create a `designs/` folder at the root of the repository. This folder will contain all of our documents that we will use to colloborte with AI, except the `AGENTS.md` file, which will be a the root of the repository.  
+
+#### Plan File
+
+Create a markdown planning file for your project or feature. 
+
+This can be a general plan file, to build the entire application:   
+`/designs/PLAN.md`
+
+or it can be a feature specific file for an already established code base:
+`/designs/new-cool-feature/PLAN.md`
+
+> [!TIP]
+> If you're using a ticketing system for work (Jira, Trello, etc), you can name you plan folder based on the ticket or the epic you're working on:    
+> `/designs/ABC-123-New-Feature/PLAN.md`
+
 
 # References
+* https://github.com/thetechdjinn/ai-assisted-development
