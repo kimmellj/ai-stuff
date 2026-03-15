@@ -11,9 +11,8 @@
 
 # Agents
 
-> [!NOTE]  
-> For the purposes of this repository, when I say "agent" I mean an AI Command Line Agent.   
-> When I say "prompt" I mean typing a mesage to the above AI Agent. 
+For the purposes of this repository, when I say "agent" I mean an AI Command Line Agent.   
+When I say "prompt" I mean typing a mesage to the above AI Agent. 
 
 The following are some popular ones:
 * [Claude Code](https://code.claude.com/docs/en/overview)
@@ -31,7 +30,7 @@ When using a an AI Agent or AI model that is run by someone else (not locally ru
 > [!CAUTION]
 > Don't give it secrets, secure information, or other peoples Personally Identifiable Information. This is basically the same kind of rules as you would use for a source control repository (GitHub, Bitbucket, etc). 
 
-Luckily, it works very similar most of the AI agents make use of an ignore file that works the same as a `.gitignore` file.    
+Luckily, most of the AI agents make use of an ignore file that works the same as a `.gitignore` file.    
 
 Unforturantely, they all haven't standarized on one yet ... :( 
 
@@ -45,7 +44,7 @@ Unforturantely, they all haven't standarized on one yet ... :(
 > [!NOTE]
 > **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory, it only knows what's in it, and when the session ends, it's all gone.
 
-When generating code with AI; things go smoother when you start thinking about context, what's in it and how bit it is. Not enough context, the agent will start shooting in the dark. Too Much context, the agent will start hallucinating or will try to compact it's memory with varying degrees of success. 
+When generating code with AI; things go smoother when you start thinking about context, what's in it and how big it is. Not enough context, the agent will start shooting in the dark. Too Much context, the agent will start hallucinating or try to compact it's memory with varying degrees of success. 
 
 Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of insructions to replace the brakes on your car, with no other information. 
 
@@ -157,15 +156,14 @@ This is where an `AGENT.md` file comes in.
 
 More so than the other two file type based context, find a balancing of too much / too little information in this file can be tricky. 
 
-Have just enough information to jump start the Agent with how your project is structured and things that might not be obvious. 
+Have just enough information to jump start the Agent with how your project is structured and things that might not be obvious but don't provide too much as it will start to pollute your context. 
 
-> For Example: the `scripts/2.0/` folder should be used for any new scripts, the scripts in the root of that folder should be consider depreated. 
+**Some Examples**   
+The following notes are examples of things that might be good to have in the `AGENT.md` file. 
 
-> Another Example: This project has two testing frameworks installed, ignore the tests that use the Mocha Framework.
+> The `scripts/2.0/` folder should be used for any new scripts, the scripts in the root of that folder should be consider depreated. 
 
-> [!NOTE]
-> This file and process has been under scrunity lately, see the following video from Theo:    
-> https://www.youtube.com/watch?v=GcNu6wrLTJc
+> This project has two testing frameworks installed, ignore the tests that use the Mocha Framework.
 
 ## Plan File
 > [!NOTE]
@@ -199,6 +197,13 @@ Depening on type type / scale of work you want to do with an agent, determines h
 
 > [!NOTE]
 > I think of small stuff as: trying to fix a bug, write a single method or adding some unit tests for a class
+
+These types of request usually don't need planning and can be executed with a few back and forths with the agents. 
+
+> [!TIP]
+> Some things to consider:  
+> * Give it as much information that you can reasonable think of
+> * If you have suspicions or thoughts on how to implement, tell it
 
 ## Large Features / Full Application
 
