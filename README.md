@@ -20,12 +20,32 @@ The following are some popular ones:
 * [Gemini CLI](https://github.com/google-gemini/gemini-cli)
 * [Open Code](https://opencode.ai/)
 * [Cline](https://cline.bot/)
+* [Aider](https://aider.chat/)
+
+# Security
+
+I'm going to get this out of the way first thing because it's probably the most important thing in this guide. 
+
+When using a an AI Agent or AI model that is run by someone else (not locally run, see my setup for that [here](./LOCAL-SETUP.md)) you have to be mindful of what kind of information you're providing it. 
+
+> [!CAUTION]
+> Don't give it secrets, secure information, or other peoples Personally Identifiable Information. This is basically the same kind of rules as you would use for a source control repository (GitHub, Bitbucket, etc). 
+
+Luckily, it works very similar most of the AI agents make use of an ignore file that works the same as a `.gitignore` file.    
+
+Unforturantely, they all haven't standarized on one yet ... :( 
+
+* [Claude](https://code.claude.com/docs/en/settings)
+* [Gemini](https://geminicli.com/docs/cli/gemini-ignore/)
+* [Cline](https://docs.cline.bot/customization/clineignore)
+* [Open Code](https://opencode.ai/docs/tools/#internals)
+* [Aider](https://aider.chat/docs/config/options.html#--aiderignore-aiderignore)
 
 # Context
 > [!NOTE]
 > **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory, it only knows what's in it, and when the session ends, it's all gone.
 
-When generating code with AI; things go smoother when you start thinking about context and what's in it.
+When generating code with AI; things go smoother when you start thinking about context, what's in it and how bit it is. Not enough context, the agent will start shooting in the dark. Too Much context, the agent will start hallucinating or will try to compact it's memory with varying degrees of success. 
 
 Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of insructions to replace the brakes on your car, with no other information. 
 
@@ -173,9 +193,14 @@ Think of it as a contract between you and the AI. Before you say "build this," y
 
 # Process
 
-This is up for much discussion and debate but the community, and I agree with them, seem to have started using common patterns. Particulary for large scale code generation. 
+Depening on type type / scale of work you want to do with an agent, determines how much much mangement you should consider doing. 
 
-# Large Features / Full Application
+## Small Stuff
+
+> [!NOTE]
+> I think of small stuff as: trying to fix a bug, write a single method or adding some unit tests for a class
+
+## Large Features / Full Application
 
 Keeping our context in mind, the fewer directives you give it, the further off the rails it can go. Further more, if you're going to need multiple chat sessions to complete a goal, you're going to need a way to maintain memory / context inbetween the sessions. 
 
