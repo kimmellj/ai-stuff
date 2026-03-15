@@ -42,7 +42,7 @@ Unforturantely, they all haven't standarized on one yet ... :(
 
 # Context
 > [!NOTE]
-> **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said. Think of it as the AI's short-term memory, it only knows what's in it, and when the session ends, it's all gone.
+> **Context** is everything the AI knows during a session. It's the running conversation, any files you've loaded, instructions you've given it, and the history of what's been said.
 
 When generating code with AI; things go smoother when you start thinking about context, what's in it and how big it is. Not enough context, the agent will start shooting in the dark. Too Much context, the agent will start hallucinating or try to compact it's memory with varying degrees of success. 
 
@@ -193,10 +193,21 @@ Think of it as a contract between you and the AI. Before you say "build this," y
 
 Depening on type type / scale of work you want to do with an agent, determines how much much mangement you should consider doing. 
 
+* Small Stuff: Autocomplete, trying to fix a bug, writing a single method or adding unit tests to a class
+* Medium Stuff: Designing and implementing a new feature
+* Large Stuff: Designing and implementing a new application
+* Massive Stuff: Designing and implement a new system, composed of multiple applications
+
+> [!TIP]
+> Some things to remember:   
+> * Have your Agent do a version controll commit after each change (helps if you need to walk back changes)
+> * The Larger the project, the more planning you need to do 
+> * Lean on using a plan file, especially if there is even a remote change you're going to need multiple sessions to finish a request
+
 ## Small Stuff
 
 > [!NOTE]
-> I think of small stuff as: trying to fix a bug, write a single method or adding some unit tests for a class
+> 
 
 These types of request usually don't need planning and can be executed with a few back and forths with the agents. 
 
