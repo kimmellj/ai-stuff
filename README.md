@@ -281,9 +281,7 @@ The following are some examples:
 > If you're using a ticketing system for work (Jira, Trello, etc), you can name the folder based on the ticket or the epic you're working on:    
 > `/designs/ABC-123-New-Feature/`
 
-### Phase 1: Research & Planning
-
-#### Research File
+### Phase 1: Research
 
 > [!NOTE]
 > This is only necessary on an existing code base
@@ -298,7 +296,7 @@ Using the [DEVELOPER](#developer-custom-agent) custom agent, prompt the Agent to
 
 Continue working with the Agent and iterating until you're confident that it has an understanding of the researched areas and there aren't any issues. 
 
-#### Plan File
+### Phase 2: Planning
 
 Create a [Plan File](#plan-file) in the sub-folder created in the first step.
 
@@ -310,6 +308,9 @@ Using the [ARCHITECT](#architect-custom-agent) custom agent, prompt the Agent to
 If you created a Research File, reference it so the Agent can build on what it already knows about the codebase.
 This should be a back and forth conversation with the Agent, where it produces something, you review it and then you prompt it again. 
 
+> [!TIP]
+> I really like the "Annotation Cylce" Boris Tane uses here: https://boristane.com/blog/how-i-use-claude-code/#the-annotation-cycle
+
 Once you have a draft, ask the Agent to review it, not to implement it, just to poke holes in it.
 Ask it to flag gaps, ambiguities, overlooked details, or anything that would trip up someone trying to implement it.
 These are the kinds of assumptions that don't show up until the code is already wrong.
@@ -317,17 +318,74 @@ These are the kinds of assumptions that don't show up until the code is already 
 **Some Example Prompts:**
 * "What's missing?"
 * "What types of security vulnerabilities can this introduce?"
-* "Is there ways we can improve the maintainability of this?"
+* "Are there ways we can improve the maintainability of this?"
 * "If you were a developer tasked with building this, what questions would you still have?"
 * "What assumptions are we making that aren't written down?"
 * "Try to poke holes in this plan. What could go wrong or what have we overlooked?"
 
-Continue iterating until you're confident the plan is solid and there's nothing left to assumption.
+Continue iterating until you're confident the plan is solid and any assumptions made will be minimal.
 
-> [!TIP] Same a traditional Software Develpoment Life Cycle (SDLC), more time spent on this step will result in less time spent un subsequent steps. 
+#### Spin Off Detailed Sub-Documents
 
+For complex areas of the plan, it can help to break them out into their own focused documents rather than cramming everything into one file.   
+Things like a data model, API contract, or auth flow are often detailed enough to warrant their own file.
 
+For Example:
+* `/designs/new-cool-feature/PLAN-DATA-MODEL.md`
+* `/designs/new-cool-feature/PLAN-API.md`
 
-# References
+Keep the main plan file as the source of truth and reference the sub-documents from it. This keeps context manageable, you can load just what's relevant for a given session rather than the whole thing.
+
+> [!TIP]
+> Same as a traditional Software Development Life Cycle (SDLC), more time spent on this step will result in less time spent in subsequent steps.
+
+### Phase 3: Development Preperation
+
+Before writing any code, consider breaking it into phases.
+Each phase should be small enough to fit comfortably in a single session, planning documents, relevant code, and conversation history all included.
+
+> [!CAUTION]
+> LLMs have a finite context window. When it fills up, the model starts compacting its memory and can lose important details mid-implementation.
+Phases that are too large are the most common reason things go off the rails late in a session.
+
+A good phase has three qualities:
+* **Self-contained** — it has a clear start, end, and defined output. You should be able to describe what "done" looks like before you start.
+* **Right-sized** — the plan section, relevant files, and conversation history for that phase should all fit in context without compaction.
+* **Sequenced** — it builds on what came before and sets up what comes next.
+
+Write the phases into your plan file before starting. Use the [ARCHITECT](#architect-custom-agent) agent to help break it down if needed.
+
+> [!NOTE]
+> If you use multiple sessions, make sure to instruct the Agent to read the Plan / Research files before executing a phase. 
+
+### Phase 4: Development
+
+We've done a lot of work to get here, now it's time for the implementation. 
+
+Since we've done all of the preparation work, this phase becomes a simple cycle, using the [DEVELOPER](#developer-custom-agent) agent:
+* Have the Agent Execute a phase of development
+* **Read the Source Code Generated**
+* Request any necessary changes
+* Have the Agent Execute a code review
+* **Read the Source Code Generated**
+* Rinse and repeat for the rest of your phases
+
+I strongly, strongly recommend, either doing it manually or having the Agent Commit frequently. This makes it so much easier to walk back changes and resolve issues. 
+
+> [!TIP]
+> You can use Skills to standardize your code reviews, see: [Code Review Java](skills/code-review-java/SKILL.md) and [Code Review Node](skills/code-review-node/SKILL.md)
+
+# Closing
+
+In closing, take as much or as little of this plan as makes sense for you but I will strongly suggest making use of the plan / research files.    
+The community is really honing in on this being the best approach right now.
+
+This document was created using the following guides as a road map:
 * https://github.com/thetechdjinn/ai-assisted-development
 * https://boristane.com/blog/how-i-use-claude-code/
+
+I really liked the ending to Boris Tane's post:
+
+> The Workflow in One Sentence    
+> Read deeply, write a plan, annotate the plan until it’s right, then let Claude execute the whole thing without stopping, checking types along the way.   
+> That’s it. No magic prompts, no elaborate system instructions, no clever hacks. Just a disciplined pipeline that separates thinking from typing. The research prevents Claude from making ignorant changes. The plan prevents it from making wrong changes. The annotation cycle injects my judgement. And the implementation command lets it run without interruption once every decision has been made.
