@@ -13,10 +13,12 @@
 # TODO 
 * Standardize references to projects / code base / repository
 
-# Agents
+# Coding Agents
 
-For the purposes of this repository, when I say "agent" I mean an AI Command Line Agent.   
-When I say "prompt" I mean typing a mesage to the above AI Agent. 
+For the purposes of this repository, when I say "Agent" I mean "Coding Agent".   
+These are command line apps that you can run to chat back and forth with an LLM (Large Language Model). 
+
+When I say "prompt" I mean typing a mesage to the above Coding Agent. 
 
 The following are some popular ones:
 * [Claude Code](https://code.claude.com/docs/en/overview)
@@ -29,12 +31,12 @@ The following are some popular ones:
 
 I'm going to get this out of the way first thing because it's probably the most important thing in this guide. 
 
-When using a an AI Agent or AI model that is run by someone else (not locally run, see my setup for that [here](./LOCAL-SETUP.md)) you have to be mindful of what kind of information you're providing it. 
+When using a an Agent or AI model that is run by someone else (not locally run, see my setup for that [here](./LOCAL-SETUP.md)) you have to be mindful of what kind of information you're providing it. 
 
 > [!CAUTION]
 > Don't give it secrets, secure information, or other peoples Personally Identifiable Information. This is basically the same kind of rules as you would use for a source control repository (GitHub, Bitbucket, etc). 
 
-Luckily, most of the AI agents make use of an ignore file that works the same as a `.gitignore` file.    
+Luckily, most of the agents make use of an ignore file that works the same as a `.gitignore` file.    
 
 Unforturantely, they all haven't standarized on one yet ... :( 
 
@@ -78,7 +80,7 @@ graph TD
 
 ## Customized Sub-Agents
 > [!INFO]
-> You can think of these as a [persona](https://en.wikipedia.org/wiki/Persona) for when you're working with an AI Agent.
+> You can think of these as a [persona](https://en.wikipedia.org/wiki/Persona) for when you're working with an Agent.
 
 They give the AI an boiler plate and specifics for what you want, so you don't have to type it every time, and
 the AI becomes the persona you describe for it. 
@@ -87,10 +89,10 @@ the AI becomes the persona you describe for it.
 > The following are two of my agents but you can find a ton of other example agents here:  
 > [https://github.com/msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents)
 
-### My Custom Agents
+#### Architect Custom Agent
 
 <details>
-<summary>Architect</summary>
+<summary>Exand</summary>
 
 [View Agent File](agents/ARCHITECT.md)
 
@@ -102,16 +104,19 @@ Principal Architect persona for high-level planning and system design.
 
 </details>
 
+#### Developer Custom Agent
+
 <details>
-<summary>Developer</summary>
+<summary>Expand</summary>
 
 [View Agent File](agents/DEVELOPER.md)
 
-Senior Developer persona for implementing, debugging, and shipping working code.
+Senior Developer persona for implementing, debugging, shipping working code, and deep codebase research.
 * Takes a design (from the Architect or your own head) and produces production-ready, tested code
 * Enforces the "no stubs, no placeholders" rule — output must run, not just look plausible
 * Useful when you have a clear task and need focused execution without second-guessing the approach
 * Pairs with the Architect: Architect designs, Developer builds — keeps each AI interaction scoped to one job
+* Switches into read-only research mode on request — traces data and control flow end-to-end, surfaces hidden dependencies, and writes findings to a file rather than jumping straight to code
 
 </details>
 
@@ -154,7 +159,7 @@ Writes unit tests for Java code using JUnit 5 and Mockito. Invoke with `/java-un
 > 
 > https://medium.com/data-science-collective/the-complete-guide-to-ai-agent-memory-files-claude-md-agents-md-and-beyond-49ea0df5c5a9
 
-So we have Agents that act as a persona, we have Skills that can be executed. Now we want to give the agent some pre-defined context about the respository.
+So we have Agents that act as a persona, we have Skills that can be executed. Now we want to give the Agent some pre-defined context about the respository.
 
 This is where an `AGENT.md` file comes in.
 
@@ -168,6 +173,29 @@ The following notes are examples of things that might be good to have in the `AG
 > The `scripts/2.0/` folder should be used for any new scripts, the scripts in the root of that folder should be consider depreated. 
 
 > This project has two testing frameworks installed, ignore the tests that use the Mocha Framework.
+
+## Research File
+> [!NOTE]
+> A research file is a document the AI writes for you, before any planning or code generation, that captures what it found in your codebase. It can be called `RESEARCH.md`, `FINDINGS.md`, or anything that makes sense. The name doesn't matter; doing it before planning does.
+
+Think of it as a sanity check before the AI starts making decisions. Before you say "plan this," you say "show me what you know." This is especially important when the AI is working in an unfamiliar part of the codebase where a wrong assumption early on can send the whole plan in the wrong direction.
+
+**Why bother?**
+* It forces the AI to actually read the code rather than guess at how it works
+* You get to catch misunderstandings before they're baked into a plan
+* Correcting a markdown file is a lot cheaper than untangling bad code
+
+**What goes in one?**
+* How the relevant code is structured and why
+* Key decisions or patterns already in place
+* Anything non-obvious that would trip up someone unfamiliar with the codebase
+* Dependencies and anything else that could be affected by changes
+
+> [!TIP]
+> When prompting, use words like "deeply", "in great detail", and "intricacies", it discourages surface-level skimming and gets you more useful output.
+
+> [!NOTE]
+> The research is done when you've read it and are confident the AI understands the system well enough to plan against it.
 
 ## Plan File
 > [!NOTE]
@@ -206,29 +234,18 @@ Depening on type type / scale of work you want to do with an agent, determines h
 > * The Larger the project, the more planning you need to do 
 > * Lean on using a plan file, especially if there is even a remote change you're going to need multiple sessions to finish a request
 
-## Smaller Stuff
+## Designs Folder
 
-These types of request usually don't need planning and can be executed with a few back and forths with the agents. 
+Create a `designs/` folder at the root of the repository. This folder will contain all of our documents that we will use to colloborte with AI, except the `AGENTS.md` file, which will be a the root of the repository. 
 
-> [!TIP]
-> Some things to consider:  
-> * Give it as much information that you can reasonable think of
-> * If you have suspicions or thoughts on how to implement, tell it
-
-## Bigger Stuff
-
-Keeping our context in mind, the fewer directives you give it, the further off the rails it can go. Further more, if you're going to need multiple chat sessions to complete a goal, you're going to need a way to maintain memory / context inbetween the sessions.
-
-Whether you're building something from scratch or adding a big feature to an existing project, having a deliberate process makes a huge difference, better output from the agent, and you stay in control of where things are going.
-
-### Phase 1: Planning & Requirements
+The word `designs` isn't that important, it could just as easily be: `plans`, just use something that will make sense for you and the people working on a code respository. 
 
 This phase will help us setup the repository for working on a feature or building the application itself. 
 
 > [!NOTE]
 > If you're working an existing code base, some of the following may already be done, you can skip or adapt to the existing code base. 
 
-#### Create / Update AGENTS.md
+## Create / Update AGENTS.md
 
 We will use the `AGENTS.md` to contain the architecture of the repository. Documentation drift is a real thing and we can use this an opportunity to ensure this file up-to-date. 
 
@@ -237,24 +254,80 @@ You can use the [Update Agent File](./skills/update-agent-file/SKILL.md) to help
 > [!CAUTION]
 > Make sure you review anything added to this document, continously, to ensure it remains correct. 
 
-#### Designs Folder
+## Smaller Tasks
 
-Create a `designs/` folder at the root of the repository. This folder will contain all of our documents that we will use to colloborte with AI, except the `AGENTS.md` file, which will be a the root of the repository.  
+These types of request usually don't need planning and can be executed with a few back and forths with the agents. 
+
+> [!TIP]
+> Some things to consider:  
+> * Give it as much information that you can reasonable think of
+> * If you have suspicions or thoughts on how to implement, tell it
+
+## Bigger Tasks / Projects
+
+Keeping our context in mind, the fewer directives you give it, the further off the rails it can go. Further more, if you're going to need multiple chat sessions to complete a goal, you're going to need a way to maintain memory / context inbetween the sessions.
+
+Whether you're building something from scratch or adding a big feature to an existing project, having a deliberate process makes a huge difference, better output from the Agent, and you stay in control of where things are going.
+
+### Phase 0: Setup
+
+Create a sub-folder in your designs folder for what you want to do. 
+
+The following are some examples:
+* `/designs/initial/` - Initial Development for a brand new Application
+* `/designs/new-cool-feature/` - Implementation of a cool new feature
+
+> [!TIP]
+> If you're using a ticketing system for work (Jira, Trello, etc), you can name the folder based on the ticket or the epic you're working on:    
+> `/designs/ABC-123-New-Feature/`
+
+### Phase 1: Research & Planning
+
+#### Research File
+
+> [!NOTE]
+> This is only necessary on an existing code base
+
+Create a [Research File](#research-file) in the sub-folder created in the first step.
+
+For Example:    
+* `/designs/initial/RESEARCH.md`
+* `/designs/new-cool-feature/RESEARCH.md`
+
+Using the [DEVELOPER](#developer-custom-agent) custom agent, prompt the Agent to thoroughly research the code base or the parts of the code base you plan to modify. 
+
+Continue working with the Agent and iterating until you're confident that it has an understanding of the researched areas and there aren't any issues. 
 
 #### Plan File
 
-Create a markdown planning file for your project or feature. 
+Create a [Plan File](#plan-file) in the sub-folder created in the first step.
 
-This can be a general plan file, to build the entire application:   
-`/designs/PLAN.md`
+For Example:
+* `/designs/initial/PLAN.md`
+* `/designs/new-cool-feature/PLAN.md`
 
-or it can be a feature specific file for an already established code base:
-`/designs/new-cool-feature/PLAN.md`
+Using the [ARCHITECT](#architect-custom-agent) custom agent, prompt the Agent to create a detailed plan for what you want to build or change.
+If you created a Research File, reference it so the Agent can build on what it already knows about the codebase.
+This should be a back and forth conversation with the Agent, where it produces something, you review it and then you prompt it again. 
 
-> [!TIP]
-> If you're using a ticketing system for work (Jira, Trello, etc), you can name you plan folder based on the ticket or the epic you're working on:    
-> `/designs/ABC-123-New-Feature/PLAN.md`
+Once you have a draft, ask the Agent to review it, not to implement it, just to poke holes in it.
+Ask it to flag gaps, ambiguities, overlooked details, or anything that would trip up someone trying to implement it.
+These are the kinds of assumptions that don't show up until the code is already wrong.
+
+**Some Example Prompts:**
+* "What's missing?"
+* "What types of security vulnerabilities can this introduce?"
+* "Is there ways we can improve the maintainability of this?"
+* "If you were a developer tasked with building this, what questions would you still have?"
+* "What assumptions are we making that aren't written down?"
+* "Try to poke holes in this plan. What could go wrong or what have we overlooked?"
+
+Continue iterating until you're confident the plan is solid and there's nothing left to assumption.
+
+> [!TIP] Same a traditional Software Develpoment Life Cycle (SDLC), more time spent on this step will result in less time spent un subsequent steps. 
+
 
 
 # References
 * https://github.com/thetechdjinn/ai-assisted-development
+* https://boristane.com/blog/how-i-use-claude-code/
