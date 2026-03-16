@@ -9,16 +9,12 @@
 > 
 > --Jamie
 
-
-# TODO 
-* Standardize references to projects / code base / repository
-
 # Coding Agents
 
 For the purposes of this repository, when I say "Agent" I mean "Coding Agent".   
 These are command line apps that you can run to chat back and forth with an LLM (Large Language Model). 
 
-When I say "prompt" I mean typing a mesage to the above Coding Agent. 
+When I say "prompt" I mean typing a message to the above Coding Agent.
 
 The following are some popular ones:
 * [Claude Code](https://code.claude.com/docs/en/overview)
@@ -38,7 +34,7 @@ When using a an Agent or AI model that is run by someone else (not locally run, 
 
 Luckily, most of the agents make use of an ignore file that works the same as a `.gitignore` file.    
 
-Unforturantely, they all haven't standarized on one yet ... :( 
+Unfortunately, they all haven't standardized on one yet ... :(
 
 * [Claude](https://code.claude.com/docs/en/settings)
 * [Gemini](https://geminicli.com/docs/cli/gemini-ignore/)
@@ -52,7 +48,7 @@ Unforturantely, they all haven't standarized on one yet ... :(
 
 When generating code with AI; things go smoother when you start thinking about context, what's in it and how big it is. Not enough context, the agent will start shooting in the dark. Too Much context, the agent will start hallucinating or try to compact it's memory with varying degrees of success. 
 
-Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of insructions to replace the brakes on your car, with no other information. 
+Asking AI to complete something for you, with no context, is like asking a Mechanic to give you a set of instructions to replace the brakes on your car, with no other information.
 
 * What kind of car is it? 
 * What kind of brakes do you have?
@@ -73,8 +69,9 @@ graph TD
         A[Custom Sub-Agents]
         B[Skills]
         C[Agent File]
-        D[Plan File]
-        A --> B --> C --> D
+        D[Research File]
+        E[Plan File]
+        A --> B --> C --> D --> E
     end
 ```
 
@@ -82,7 +79,7 @@ graph TD
 > [!INFO]
 > You can think of these as a [persona](https://en.wikipedia.org/wiki/Persona) for when you're working with an Agent.
 
-They give the AI an boiler plate and specifics for what you want, so you don't have to type it every time, and
+They give the AI a boilerplate and specifics for what you want, so you don't have to type it every time, and
 the AI becomes the persona you describe for it. 
 
 > [!TIP]
@@ -92,7 +89,7 @@ the AI becomes the persona you describe for it.
 #### Architect Custom Agent
 
 <details>
-<summary>Exand</summary>
+<summary>Expand</summary>
 
 [View Agent File](agents/ARCHITECT.md)
 
@@ -126,7 +123,7 @@ Senior Developer persona for implementing, debugging, shipping working code, and
 > 
 > https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
 
-Claude pioneered the concept but most all all the Agents today support them. 
+Claude pioneered the concept but most all the Agents today support them.
 * [Claude](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 * [Gemini](https://geminicli.com/docs/cli/skills/)
 * [Open Code](https://opencode.ai/docs/skills/)
@@ -163,7 +160,7 @@ So we have Agents that act as a persona, we have Skills that can be executed. No
 
 This is where an `AGENT.md` file comes in.
 
-More so than the other two file type based context, find a balancing of too much / too little information in this file can be tricky. 
+More so than the other file types, finding the right balance of too much / too little information in this file can be tricky.
 
 Have just enough information to jump start the Agent with the architecture of your project and things that might not be obvious but don't provide too much as it will start to pollute your context. 
 
@@ -223,27 +220,16 @@ Think of it as a contract between you and the AI. Before you say "build this," y
 
 # Process
 
-Depening on type type / scale of work you want to do with an agent, determines how much much mangement you should consider doing. 
+Depending on the type / scale of work you want to do with an agent determines how much management you should consider doing.
 
 * Smaller Stuff: Autocomplete, trying to fix a bug, writing a single method or adding unit tests to a class
 * Bigger Stuff: Designing and implementing a new application
 
 > [!TIP]
 > Some things to remember:   
-> * Have your Agent do a version controll commit after each change (helps if you need to walk back changes)
+> * Have your Agent do a version control commit after each change (helps if you need to walk back changes)
 > * The Larger the project, the more planning you need to do 
 > * Lean on using a plan file, especially if there is even a remote change you're going to need multiple sessions to finish a request
-
-## Designs Folder
-
-Create a `designs/` folder at the root of the repository. This folder will contain all of our documents that we will use to colloborte with AI, except the `AGENTS.md` file, which will be a the root of the repository. 
-
-The word `designs` isn't that important, it could just as easily be: `plans`, just use something that will make sense for you and the people working on a code respository. 
-
-This phase will help us setup the repository for working on a feature or building the application itself. 
-
-> [!NOTE]
-> If you're working an existing code base, some of the following may already be done, you can skip or adapt to the existing code base. 
 
 ## Create / Update AGENTS.md
 
@@ -271,7 +257,14 @@ Whether you're building something from scratch or adding a big feature to an exi
 
 ### Phase 0: Setup
 
-Create a sub-folder in your designs folder for what you want to do. 
+Create a `designs/` folder at the root of the repository. This folder will contain all documents used to collaborate with AI, except `AGENTS.md` which lives at the repository root.
+
+The name isn't important, `plans`, `specs`, whatever makes sense for you and your team.
+
+> [!NOTE]
+> If you're working on an existing codebase, some of this may already be in place, skip or adapt as needed.
+
+Then create a sub-folder inside it for what you're working on.
 
 The following are some examples:
 * `/designs/initial/` - Initial Development for a brand new Application
@@ -309,7 +302,7 @@ If you created a Research File, reference it so the Agent can build on what it a
 This should be a back and forth conversation with the Agent, where it produces something, you review it and then you prompt it again. 
 
 > [!TIP]
-> I really like the "Annotation Cylce" Boris Tane uses here: https://boristane.com/blog/how-i-use-claude-code/#the-annotation-cycle
+> I really like the "Annotation Cycle" Boris Tane uses here: https://boristane.com/blog/how-i-use-claude-code/#the-annotation-cycle
 
 Once you have a draft, ask the Agent to review it, not to implement it, just to poke holes in it.
 Ask it to flag gaps, ambiguities, overlooked details, or anything that would trip up someone trying to implement it.
@@ -339,7 +332,7 @@ Keep the main plan file as the source of truth and reference the sub-documents f
 > [!TIP]
 > Same as a traditional Software Development Life Cycle (SDLC), more time spent on this step will result in less time spent in subsequent steps.
 
-### Phase 3: Development Preperation
+### Phase 3: Development Preparation
 
 Before writing any code, consider breaking it into phases.
 Each phase should be small enough to fit comfortably in a single session, planning documents, relevant code, and conversation history all included.
